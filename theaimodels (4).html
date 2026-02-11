@@ -1,0 +1,1811 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="description" content="TheAImodels - Your Smart Guide to AI Tools. Discover and compare the best AI tools for your needs.">
+    <meta name="theme-color" content="#0a0e27">
+    <title>TheAImodels - Your Smart Guide to AI Tools</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;600;700&family=Orbitron:wght@400;700;900&display=swap');
+        
+        :root {
+            --primary: #0a0e27;
+            --secondary: #1a1f3a;
+            --accent: #00d9ff;
+            --accent-2: #ff3366;
+            --text: #e8e9f3;
+            --text-dim: #9ba0c0;
+            --glow: rgba(0, 217, 255, 0.3);
+            --card-bg: rgba(26, 31, 58, 0.6);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        body {
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+            background: var(--primary);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.4;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 217, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 51, 102, 0.1) 0%, transparent 50%);
+        }
+        
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 217, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 217, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: 0;
+            animation: gridMove 20s linear infinite;
+        }
+        
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+        
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        /* Header */
+        header {
+            text-align: center;
+            padding: 1.5rem 0 1rem;
+            animation: fadeInDown 0.8s ease-out;
+        }
+        
+        .logo-container {
+            display: inline-block;
+            position: relative;
+            margin-bottom: 0.5rem;
+        }
+        
+        .logo-svg {
+            width: 100px;
+            height: 100px;
+            filter: drop-shadow(0 0 20px rgba(0, 217, 255, 0.4));
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.3rem;
+            text-shadow: 0 0 40px var(--glow);
+            letter-spacing: -2px;
+        }
+        
+        .tagline {
+            font-size: 1rem;
+            color: var(--text-dim);
+            font-weight: 300;
+            margin-bottom: 0.8rem;
+        }
+        
+        /* Language Toggle */
+        .lang-toggle {
+            display: inline-flex;
+            gap: 0.5rem;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            border-radius: 50px;
+            padding: 0.3rem;
+            margin-top: 1rem;
+        }
+        
+        .lang-btn {
+            padding: 0.5rem 1.5rem;
+            border: none;
+            background: transparent;
+            color: var(--text-dim);
+            cursor: pointer;
+            border-radius: 50px;
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            min-height: 44px; /* iOS touch target minimum */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .lang-btn.active {
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            color: white;
+            box-shadow: 0 4px 20px rgba(0, 217, 255, 0.4);
+        }
+        
+        /* Main Input Area */
+        .input-section {
+            margin: 1.5rem 0;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+        
+        .input-wrapper {
+            position: relative;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(0, 217, 255, 0.2);
+            border-radius: 24px;
+            padding: 1.5rem;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .input-wrapper:focus-within {
+            border-color: var(--accent);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.4),
+                0 0 40px var(--glow),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+        
+        .input-label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+        
+        #userInput {
+            width: 100%;
+            min-height: 130px;
+            background: rgba(10, 14, 39, 0.5);
+            border: 1px solid rgba(0, 217, 255, 0.1);
+            border-radius: 16px;
+            padding: 1.2rem;
+            color: var(--text);
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+            font-size: 1rem;
+            resize: vertical;
+            outline: none;
+            transition: all 0.3s ease;
+            line-height: 1.6;
+        }
+        
+        #userInput::placeholder {
+            color: var(--text-dim);
+            opacity: 0.6;
+        }
+        
+        #userInput:focus {
+            border-color: var(--accent);
+            background: rgba(10, 14, 39, 0.7);
+        }
+        
+        .submit-btn {
+            margin-top: 1rem;
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            border: none;
+            border-radius: 16px;
+            color: white;
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 217, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(0, 217, 255, 0.5);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        
+        /* Results Section */
+        .results-section {
+            margin-top: 3rem;
+            display: none;
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .results-section.visible {
+            display: block;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .roadmap {
+            position: relative;
+            padding: 2rem 0;
+        }
+        
+        .step-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            transition: all 0.3s ease;
+            animation: slideIn 0.5s ease-out both;
+        }
+        
+        .step-card:hover {
+            border-color: var(--accent);
+            transform: translateX(-5px);
+            box-shadow: 0 8px 30px rgba(0, 217, 255, 0.2);
+        }
+        
+        .step-number {
+            position: absolute;
+            top: -15px;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.3rem;
+            box-shadow: 0 4px 20px rgba(0, 217, 255, 0.4);
+        }
+        
+        .step-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--accent);
+            margin-top: 1rem;
+        }
+        
+        .step-description {
+            color: var(--text-dim);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .tool-card {
+            background: rgba(10, 14, 39, 0.5);
+            border: 1px solid rgba(0, 217, 255, 0.15);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .tool-card:hover {
+            border-color: var(--accent);
+            background: rgba(10, 14, 39, 0.8);
+            transform: translateY(-3px);
+        }
+        
+        .tool-name {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+        
+        .tool-description {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        .tool-link {
+            display: inline-block;
+            padding: 0.7rem 1.3rem;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .tool-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0, 217, 255, 0.4);
+        }
+        
+        /* Loading Animation */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 3rem;
+        }
+        
+        .loading.visible {
+            display: block;
+        }
+        
+        .spinner {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1rem;
+            border: 4px solid rgba(0, 217, 255, 0.2);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        /* RTL/LTR Support */
+        [dir="ltr"] .step-card:hover {
+            transform: translateX(5px);
+        }
+        
+        [dir="ltr"] .step-number {
+            right: auto;
+            left: 2rem;
+        }
+        
+        [dir="ltr"] @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        /* Comparison Feature */
+        .comparison-section {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(0, 217, 255, 0.3);
+            border-radius: 20px;
+            display: none;
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .comparison-section.visible {
+            display: block;
+        }
+        
+        .comparison-header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .comparison-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .comparison-icon {
+            font-size: 2rem;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .comparison-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .comparison-text h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.3rem;
+        }
+        
+        .comparison-text p {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+        }
+        
+        .view-comparison-btn {
+            padding: 0.8rem 2rem;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 217, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .view-comparison-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .view-comparison-btn:hover::before {
+            left: 100%;
+        }
+        
+        .view-comparison-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(0, 217, 255, 0.5);
+        }
+        
+        .view-comparison-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .comparison-badge {
+            display: inline-block;
+            background: var(--accent-2);
+            color: white;
+            padding: 0.3rem 0.7rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-left: 0.5rem;
+        }
+        
+        .comparison-toggle {
+            display: none;
+        }
+        
+        .comparison-panel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 14, 39, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 2rem;
+            overflow-y: auto;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+            z-index: 999;
+        }
+        
+        .comparison-panel.visible {
+            transform: translateY(0);
+        }
+        
+        .comparison-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .comparison-title {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .close-comparison {
+            background: rgba(255, 51, 102, 0.2);
+            border: 2px solid var(--accent-2);
+            color: var(--accent-2);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+        
+        .close-comparison:hover {
+            background: var(--accent-2);
+            color: white;
+            transform: rotate(90deg);
+        }
+        
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .compare-tool-card {
+            background: var(--card-bg);
+            border: 2px solid rgba(0, 217, 255, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .compare-tool-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0, 217, 255, 0.3);
+        }
+        
+        .remove-compare {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 51, 102, 0.2);
+            border: 2px solid var(--accent-2);
+            color: var(--accent-2);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+        
+        .remove-compare:hover {
+            background: var(--accent-2);
+            color: white;
+            transform: scale(1.1) rotate(90deg);
+        }
+        
+        .compare-feature {
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .compare-feature:last-child {
+            border-bottom: none;
+        }
+        
+        .feature-label {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .feature-value {
+            font-weight: 600;
+            color: var(--text);
+            font-size: 1rem;
+        }
+        
+        .add-to-compare {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 0.8rem;
+            padding: 0.7rem 1.2rem;
+            background: rgba(0, 217, 255, 0.1);
+            border: 2px solid rgba(0, 217, 255, 0.3);
+            color: var(--accent);
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+            min-height: 44px;
+            width: 100%;
+        }
+        
+        .add-to-compare:hover {
+            background: rgba(0, 217, 255, 0.2);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 217, 255, 0.3);
+        }
+        
+        .add-to-compare.added {
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            border-color: var(--accent-2);
+            color: white;
+            box-shadow: 0 4px 20px rgba(0, 217, 255, 0.4);
+        }
+        
+        .add-to-compare.added:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(0, 217, 255, 0.5);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem 0 0.5rem;
+            }
+            
+            .logo-svg {
+                width: 70px;
+                height: 70px;
+            }
+            
+            .logo {
+                font-size: 1.8rem;
+            }
+            
+            .tagline {
+                font-size: 0.85rem;
+                margin-bottom: 0.5rem;
+            }
+            
+            .lang-toggle {
+                margin-top: 0.5rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+            .input-section {
+                margin: 1rem 0;
+            }
+            
+            .input-wrapper {
+                padding: 1.2rem;
+            }
+            
+            #userInput {
+                min-height: 120px;
+                font-size: 1rem;
+                padding: 1rem;
+            }
+            
+            .submit-btn {
+                padding: 1rem;
+                font-size: 1rem;
+            }
+            
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .comparison-header-bar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .view-comparison-btn {
+                width: 100%;
+            }
+            
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .comparison-panel {
+                padding: 1rem;
+            }
+            
+            .comparison-title {
+                font-size: 1.5rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .step-card {
+                padding: 1.5rem;
+            }
+            
+            .step-title {
+                font-size: 1.2rem;
+            }
+        }
+        
+        /* Extra small devices (phones in portrait) */
+        @media (max-width: 480px) {
+            header {
+                padding: 0.8rem 0 0.3rem;
+            }
+            
+            .logo-svg {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .tagline {
+                font-size: 0.75rem;
+            }
+            
+            .container {
+                padding: 0.8rem;
+            }
+            
+            .input-wrapper {
+                padding: 1rem;
+            }
+            
+            #userInput {
+                min-height: 100px;
+                font-size: 0.95rem;
+                padding: 0.8rem;
+            }
+            
+            .submit-btn {
+                padding: 0.9rem;
+                font-size: 0.95rem;
+            }
+            
+            .lang-btn {
+                padding: 0.4rem 1rem;
+                font-size: 0.85rem;
+            }
+        }
+        
+        /* Landscape orientation optimization */
+        @media (max-height: 600px) and (orientation: landscape) {
+            header {
+                padding: 0.5rem 0 0.3rem;
+            }
+            
+            .logo-svg {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .logo {
+                font-size: 1.3rem;
+            }
+            
+            .tagline {
+                font-size: 0.7rem;
+                margin-bottom: 0.3rem;
+            }
+            
+            .input-section {
+                margin: 0.5rem 0;
+            }
+            
+            .input-wrapper {
+                padding: 0.8rem;
+            }
+            
+            #userInput {
+                min-height: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    <div class="grid-overlay"></div>
+    
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <svg class="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+                    <defs>
+                        <linearGradient id="mainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#00d9ff;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#ff3366;stop-opacity:1" />
+                        </linearGradient>
+                        <radialGradient id="glowGrad">
+                            <stop offset="0%" style="stop-color:#00d9ff;stop-opacity:0.6" />
+                            <stop offset="100%" style="stop-color:#00d9ff;stop-opacity:0" />
+                        </radialGradient>
+                        <filter id="glow">
+                            <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                            <feMerge>
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    <circle cx="200" cy="200" r="150" fill="url(#glowGrad)" opacity="0.3"/>
+                    <circle cx="200" cy="200" r="120" fill="none" stroke="url(#mainGrad)" stroke-width="3" opacity="0.4">
+                        <animateTransform attributeName="transform" type="rotate" from="0 200 200" to="360 200 200" dur="20s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle cx="200" cy="200" r="100" fill="none" stroke="url(#mainGrad)" stroke-width="2" opacity="0.3">
+                        <animateTransform attributeName="transform" type="rotate" from="360 200 200" to="0 200 200" dur="15s" repeatCount="indefinite"/>
+                    </circle>
+                    <g filter="url(#glow)">
+                        <path d="M 200 100 L 270 140 L 270 220 L 200 260 L 130 220 L 130 140 Z" fill="none" stroke="url(#mainGrad)" stroke-width="4" stroke-linejoin="round">
+                            <animate attributeName="stroke-width" values="4;6;4" dur="3s" repeatCount="indefinite"/>
+                        </path>
+                    </g>
+                    <g transform="translate(200, 180)">
+                        <circle cx="0" cy="0" r="8" fill="#00d9ff">
+                            <animate attributeName="r" values="8;10;8" dur="2s" repeatCount="indefinite"/>
+                        </circle>
+                        <circle cx="-30" cy="-20" r="5" fill="#00d9ff" opacity="0.8"/>
+                        <circle cx="-30" cy="20" r="5" fill="#00d9ff" opacity="0.8"/>
+                        <circle cx="30" cy="-20" r="5" fill="#ff3366" opacity="0.8"/>
+                        <circle cx="30" cy="20" r="5" fill="#ff3366" opacity="0.8"/>
+                        <line x1="0" y1="0" x2="-30" y2="-20" stroke="#00d9ff" stroke-width="2" opacity="0.6">
+                            <animate attributeName="opacity" values="0.3;0.8;0.3" dur="2s" repeatCount="indefinite"/>
+                        </line>
+                        <line x1="0" y1="0" x2="-30" y2="20" stroke="#00d9ff" stroke-width="2" opacity="0.6">
+                            <animate attributeName="opacity" values="0.3;0.8;0.3" dur="2s" begin="0.5s" repeatCount="indefinite"/>
+                        </line>
+                        <line x1="0" y1="0" x2="30" y2="-20" stroke="#ff3366" stroke-width="2" opacity="0.6">
+                            <animate attributeName="opacity" values="0.3;0.8;0.3" dur="2s" begin="1s" repeatCount="indefinite"/>
+                        </line>
+                        <line x1="0" y1="0" x2="30" y2="20" stroke="#ff3366" stroke-width="2" opacity="0.6">
+                            <animate attributeName="opacity" values="0.3;0.8;0.3" dur="2s" begin="1.5s" repeatCount="indefinite"/>
+                        </line>
+                        <circle cx="-50" cy="-35" r="3" fill="#00d9ff" opacity="0.5"/>
+                        <circle cx="-50" cy="35" r="3" fill="#00d9ff" opacity="0.5"/>
+                        <circle cx="50" cy="-35" r="3" fill="#ff3366" opacity="0.5"/>
+                        <circle cx="50" cy="35" r="3" fill="#ff3366" opacity="0.5"/>
+                        <line x1="-30" y1="-20" x2="-50" y2="-35" stroke="#00d9ff" stroke-width="1.5" opacity="0.4"/>
+                        <line x1="-30" y1="20" x2="-50" y2="35" stroke="#00d9ff" stroke-width="1.5" opacity="0.4"/>
+                        <line x1="30" y1="-20" x2="50" y2="-35" stroke="#ff3366" stroke-width="1.5" opacity="0.4"/>
+                        <line x1="30" y1="20" x2="50" y2="35" stroke="#ff3366" stroke-width="1.5" opacity="0.4"/>
+                    </g>
+                    <circle cx="200" cy="80" r="3" fill="#00d9ff" opacity="0.8">
+                        <animateTransform attributeName="transform" type="rotate" from="0 200 180" to="360 200 180" dur="5s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0.3;1;0.3" dur="5s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle cx="200" cy="80" r="3" fill="#ff3366" opacity="0.8">
+                        <animateTransform attributeName="transform" type="rotate" from="180 200 180" to="540 200 180" dur="5s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="1;0.3;1" dur="5s" repeatCount="indefinite"/>
+                    </circle>
+                </svg>
+            </div>
+            <h1 class="logo">TheAImodels</h1>
+            <p class="tagline" data-ar="دليلك الذكي لأدوات الذكاء الاصطناعي" data-en="Your Smart Guide to AI Tools">Your Smart Guide to AI Tools</p>
+            <div class="lang-toggle">
+                <button class="lang-btn" data-lang="ar">العربية</button>
+                <button class="lang-btn active" data-lang="en">English</button>
+            </div>
+        </header>
+        
+        <main>
+            <section class="input-section">
+                <div class="input-wrapper">
+                    <label class="input-label" data-ar="ماذا تريد أن تفعل بالذكاء الاصطناعي؟" data-en="What do you want AI to do for you?">What do you want AI to do for you?</label>
+                    <textarea 
+                        id="userInput" 
+                        placeholder="Example: I want to create realistic images for my product, convert text to video, analyze sales data..."
+                        data-ar-placeholder="مثال: أريد إنشاء صور واقعية لمنتجي، تحويل النص إلى فيديو، تحليل بيانات المبيعات..."
+                        data-en-placeholder="Example: I want to create realistic images for my product, convert text to video, analyze sales data..."
+                    ></textarea>
+                    <button class="submit-btn" id="analyzeBtn" data-ar="✨ اكتشف الأدوات المناسبة" data-en="✨ Discover the Right Tools">✨ Discover the Right Tools</button>
+                </div>
+            </section>
+            
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p data-ar="جاري تحليل طلبك والبحث عن أفضل الأدوات..." data-en="Analyzing your request and finding the best tools...">Analyzing your request and finding the best tools...</p>
+            </div>
+            
+            <section class="results-section" id="results">
+                <h2 class="section-title" data-ar="خارطة الطريق المخصصة لك" data-en="Your Personalized Roadmap">Your Personalized Roadmap</h2>
+                <div class="roadmap" id="roadmap"></div>
+            </section>
+            
+            <!-- Comparison Section - Below Results -->
+            <section class="comparison-section" id="comparisonSection">
+                <div class="comparison-header-bar">
+                    <div class="comparison-info">
+                        <div class="comparison-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+                                <defs>
+                                    <linearGradient id="miniGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#00d9ff;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#ff3366;stop-opacity:1" />
+                                    </linearGradient>
+                                    <radialGradient id="miniGlowGrad">
+                                        <stop offset="0%" style="stop-color:#00d9ff;stop-opacity:0.6" />
+                                        <stop offset="100%" style="stop-color:#00d9ff;stop-opacity:0" />
+                                    </radialGradient>
+                                </defs>
+                                <circle cx="200" cy="200" r="150" fill="url(#miniGlowGrad)" opacity="0.3"/>
+                                <circle cx="200" cy="200" r="120" fill="none" stroke="url(#miniGrad)" stroke-width="3" opacity="0.4">
+                                    <animateTransform attributeName="transform" type="rotate" from="0 200 200" to="360 200 200" dur="20s" repeatCount="indefinite"/>
+                                </circle>
+                                <path d="M 200 100 L 270 140 L 270 220 L 200 260 L 130 220 L 130 140 Z" fill="none" stroke="url(#miniGrad)" stroke-width="4" stroke-linejoin="round">
+                                    <animate attributeName="stroke-width" values="4;6;4" dur="3s" repeatCount="indefinite"/>
+                                </path>
+                                <g transform="translate(200, 180)">
+                                    <circle cx="0" cy="0" r="8" fill="#00d9ff">
+                                        <animate attributeName="r" values="8;10;8" dur="2s" repeatCount="indefinite"/>
+                                    </circle>
+                                    <circle cx="-30" cy="-20" r="5" fill="#00d9ff" opacity="0.8"/>
+                                    <circle cx="-30" cy="20" r="5" fill="#00d9ff" opacity="0.8"/>
+                                    <circle cx="30" cy="-20" r="5" fill="#ff3366" opacity="0.8"/>
+                                    <circle cx="30" cy="20" r="5" fill="#ff3366" opacity="0.8"/>
+                                    <line x1="0" y1="0" x2="-30" y2="-20" stroke="#00d9ff" stroke-width="2" opacity="0.6">
+                                        <animate attributeName="opacity" values="0.3;0.8;0.3" dur="2s" repeatCount="indefinite"/>
+                                    </line>
+                                    <line x1="0" y1="0" x2="-30" y2="20" stroke="#00d9ff" stroke-width="2" opacity="0.6">
+                                        <animate attributeName="opacity" values="0.3;0.8;0.3" dur="2s" begin="0.5s" repeatCount="indefinite"/>
+                                    </line>
+                                    <line x1="0" y1="0" x2="30" y2="-20" stroke="#ff3366" stroke-width="2" opacity="0.6">
+                                        <animate attributeName="opacity" values="0.3;0.8;0.3" dur="2s" begin="1s" repeatCount="indefinite"/>
+                                    </line>
+                                    <line x1="0" y1="0" x2="30" y2="20" stroke="#ff3366" stroke-width="2" opacity="0.6">
+                                        <animate attributeName="opacity" values="0.3;0.8;0.3" dur="2s" begin="1.5s" repeatCount="indefinite"/>
+                                    </line>
+                                    <circle cx="-50" cy="-35" r="3" fill="#00d9ff" opacity="0.5"/>
+                                    <circle cx="-50" cy="35" r="3" fill="#00d9ff" opacity="0.5"/>
+                                    <circle cx="50" cy="-35" r="3" fill="#ff3366" opacity="0.5"/>
+                                    <circle cx="50" cy="35" r="3" fill="#ff3366" opacity="0.5"/>
+                                    <line x1="-30" y1="-20" x2="-50" y2="-35" stroke="#00d9ff" stroke-width="1.5" opacity="0.4"/>
+                                    <line x1="-30" y1="20" x2="-50" y2="35" stroke="#00d9ff" stroke-width="1.5" opacity="0.4"/>
+                                    <line x1="30" y1="-20" x2="50" y2="-35" stroke="#ff3366" stroke-width="1.5" opacity="0.4"/>
+                                    <line x1="30" y1="20" x2="50" y2="35" stroke="#ff3366" stroke-width="1.5" opacity="0.4"/>
+                                </g>
+                                <circle cx="200" cy="80" r="3" fill="#00d9ff" opacity="0.8">
+                                    <animateTransform attributeName="transform" type="rotate" from="0 200 180" to="360 200 180" dur="5s" repeatCount="indefinite"/>
+                                    <animate attributeName="opacity" values="0.3;1;0.3" dur="5s" repeatCount="indefinite"/>
+                                </circle>
+                                <circle cx="200" cy="80" r="3" fill="#ff3366" opacity="0.8">
+                                    <animateTransform attributeName="transform" type="rotate" from="180 200 180" to="540 200 180" dur="5s" repeatCount="indefinite"/>
+                                    <animate attributeName="opacity" values="1;0.3;1" dur="5s" repeatCount="indefinite"/>
+                                </circle>
+                            </svg>
+                        </div>
+                        <div class="comparison-text">
+                            <h3 data-ar="مقارنة الأدوات" data-en="Tool Comparison">Tool Comparison</h3>
+                            <p data-ar="قارن حتى 3 أدوات لاختيار الأفضل" data-en="Compare up to 3 tools to choose the best">Compare up to 3 tools to choose the best</p>
+                        </div>
+                    </div>
+                    <button class="view-comparison-btn" id="viewComparisonBtn" disabled>
+                        <span data-ar="عرض المقارنة" data-en="View Comparison">View Comparison</span>
+                        <span class="comparison-badge" id="compareBadge">0</span>
+                    </button>
+                </div>
+            </section>
+        </main>
+        
+        <!-- Full Screen Comparison Panel -->
+        <div class="comparison-panel" id="comparisonPanel">
+            <div class="comparison-header">
+                <h3 class="comparison-title" data-ar="مقارنة الأدوات التفصيلية" data-en="Detailed Tool Comparison">Detailed Tool Comparison</h3>
+                <button class="close-comparison" id="closeComparison">×</button>
+            </div>
+            <div class="comparison-grid" id="comparisonGrid"></div>
+        </div>
+    </div>
+    
+    <script>
+        // Translation data
+        const translations = {
+            ar: {
+                direction: 'rtl',
+                lang: 'ar'
+            },
+            en: {
+                direction: 'ltr',
+                lang: 'en'
+            }
+        };
+        
+        let currentLang = 'en';
+        
+        // Language switching
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const lang = btn.dataset.lang;
+                currentLang = lang;
+                
+                // Update active state
+                document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Update HTML attributes
+                document.documentElement.lang = translations[lang].lang;
+                document.documentElement.dir = translations[lang].direction;
+                
+                // Update all text elements
+                document.querySelectorAll('[data-ar][data-en]').forEach(el => {
+                    if (el.tagName === 'TEXTAREA' || el.tagName === 'INPUT') {
+                        el.placeholder = el.dataset[`${lang}Placeholder`];
+                    } else {
+                        el.textContent = el.dataset[lang];
+                    }
+                });
+            });
+        });
+        
+        // AI Tools Database with detailed comparison info
+        const aiToolsDatabase = {
+            'image-generation': [
+                {
+                    name: 'Midjourney',
+                    description: {
+                        ar: 'أفضل أداة لإنشاء صور فنية واحترافية بجودة عالية',
+                        en: 'Best tool for creating artistic and professional high-quality images'
+                    },
+                    url: 'https://www.midjourney.com',
+                    category: 'Image Generation',
+                    pricing: { ar: '$10-60/شهر', en: '$10-60/month' },
+                    easeOfUse: 4,
+                    features: {
+                        ar: ['جودة عالية جداً', 'أنماط فنية متنوعة', 'يعمل عبر Discord'],
+                        en: ['Very high quality', 'Diverse artistic styles', 'Works via Discord']
+                    }
+                },
+                {
+                    name: 'DALL-E 3',
+                    description: {
+                        ar: 'من OpenAI، ممتاز لفهم الأوامر المعقدة وإنشاء صور دقيقة',
+                        en: 'From OpenAI, excellent for understanding complex prompts and creating precise images'
+                    },
+                    url: 'https://openai.com/dall-e-3',
+                    category: 'Image Generation',
+                    pricing: { ar: '$20/شهر (ChatGPT Plus)', en: '$20/month (ChatGPT Plus)' },
+                    easeOfUse: 5,
+                    features: {
+                        ar: ['فهم دقيق للنصوص', 'متكامل مع ChatGPT', 'سهل الاستخدام'],
+                        en: ['Precise text understanding', 'Integrated with ChatGPT', 'Easy to use']
+                    }
+                },
+                {
+                    name: 'Stable Diffusion',
+                    description: {
+                        ar: 'مفتوح المصدر، مثالي للتحكم الكامل والتخصيص',
+                        en: 'Open-source, ideal for full control and customization'
+                    },
+                    url: 'https://stability.ai',
+                    category: 'Image Generation',
+                    pricing: { ar: 'مجاني (مفتوح المصدر)', en: 'Free (Open-source)' },
+                    easeOfUse: 3,
+                    features: {
+                        ar: ['مفتوح المصدر', 'تحكم كامل', 'يتطلب معرفة تقنية'],
+                        en: ['Open-source', 'Full control', 'Requires technical knowledge']
+                    }
+                }
+            ],
+            'video-generation': [
+                {
+                    name: 'Runway Gen-3',
+                    description: {
+                        ar: 'إنشاء فيديوهات واقعية من النص أو الصور',
+                        en: 'Create realistic videos from text or images'
+                    },
+                    url: 'https://runwayml.com',
+                    category: 'Video Generation',
+                    pricing: { ar: '$12-76/شهر', en: '$12-76/month' },
+                    easeOfUse: 4,
+                    features: {
+                        ar: ['فيديوهات واقعية', 'تحرير متقدم', 'جودة احترافية'],
+                        en: ['Realistic videos', 'Advanced editing', 'Professional quality']
+                    }
+                },
+                {
+                    name: 'Pika Labs',
+                    description: {
+                        ar: 'تحويل النص إلى فيديو بسهولة وسرعة',
+                        en: 'Convert text to video easily and quickly'
+                    },
+                    url: 'https://pika.art',
+                    category: 'Video Generation',
+                    pricing: { ar: '$8-28/شهر', en: '$8-28/month' },
+                    easeOfUse: 5,
+                    features: {
+                        ar: ['سريع وسهل', 'واجهة بسيطة', 'نتائج سريعة'],
+                        en: ['Fast and easy', 'Simple interface', 'Quick results']
+                    }
+                },
+                {
+                    name: 'Synthesia',
+                    description: {
+                        ar: 'إنشاء فيديوهات بمقدمين افتراضيين',
+                        en: 'Create videos with virtual presenters'
+                    },
+                    url: 'https://www.synthesia.io',
+                    category: 'Video Generation',
+                    pricing: { ar: '$29-67/شهر', en: '$29-67/month' },
+                    easeOfUse: 5,
+                    features: {
+                        ar: ['مقدمون افتراضيون', 'مثالي للشركات', 'متعدد اللغات'],
+                        en: ['Virtual presenters', 'Ideal for businesses', 'Multi-language']
+                    }
+                }
+            ],
+            'text-generation': [
+                {
+                    name: 'ChatGPT',
+                    description: {
+                        ar: 'الأفضل للمحادثات وكتابة المحتوى',
+                        en: 'Best for conversations and content writing'
+                    },
+                    url: 'https://chat.openai.com',
+                    category: 'Text Generation',
+                    pricing: { ar: 'مجاني / $20/شهر', en: 'Free / $20/month' },
+                    easeOfUse: 5,
+                    features: {
+                        ar: ['محادثات طبيعية', 'كتابة متنوعة', 'الأكثر شهرة'],
+                        en: ['Natural conversations', 'Diverse writing', 'Most popular']
+                    }
+                },
+                {
+                    name: 'Claude',
+                    description: {
+                        ar: 'ممتاز للتحليل العميق والمهام المعقدة',
+                        en: 'Excellent for deep analysis and complex tasks'
+                    },
+                    url: 'https://claude.ai',
+                    category: 'Text Generation',
+                    pricing: { ar: 'مجاني / $20/شهر', en: 'Free / $20/month' },
+                    easeOfUse: 5,
+                    features: {
+                        ar: ['تحليل عميق', 'سياق طويل', 'دقة عالية'],
+                        en: ['Deep analysis', 'Long context', 'High accuracy']
+                    }
+                },
+                {
+                    name: 'Gemini',
+                    description: {
+                        ar: 'من Google، قوي في البحث والتكامل',
+                        en: 'From Google, powerful in search and integration'
+                    },
+                    url: 'https://gemini.google.com',
+                    category: 'Text Generation',
+                    pricing: { ar: 'مجاني / $20/شهر', en: 'Free / $20/month' },
+                    easeOfUse: 5,
+                    features: {
+                        ar: ['تكامل Google', 'بحث قوي', 'متعدد الوسائط'],
+                        en: ['Google integration', 'Powerful search', 'Multimodal']
+                    }
+                }
+            ],
+            'data-analysis': [
+                {
+                    name: 'ChatGPT Advanced Data Analysis',
+                    description: {
+                        ar: 'تحليل البيانات وإنشاء الرسوم البيانية',
+                        en: 'Data analysis and chart creation'
+                    },
+                    url: 'https://chat.openai.com',
+                    category: 'Data Analysis',
+                    pricing: { ar: '$20/شهر', en: '$20/month' },
+                    easeOfUse: 4,
+                    features: {
+                        ar: ['تحليل Python', 'رسوم بيانية', 'معالجة ملفات'],
+                        en: ['Python analysis', 'Charts', 'File processing']
+                    }
+                },
+                {
+                    name: 'Julius AI',
+                    description: {
+                        ar: 'متخصص في تحليل البيانات والإحصاء',
+                        en: 'Specialized in data analysis and statistics'
+                    },
+                    url: 'https://julius.ai',
+                    category: 'Data Analysis',
+                    pricing: { ar: 'مجاني / $20/شهر', en: 'Free / $20/month' },
+                    easeOfUse: 4,
+                    features: {
+                        ar: ['تحليل إحصائي', 'تصورات تفاعلية', 'متخصص بالبيانات'],
+                        en: ['Statistical analysis', 'Interactive visuals', 'Data-focused']
+                    }
+                },
+                {
+                    name: 'Tableau AI',
+                    description: {
+                        ar: 'تصور البيانات بشكل احترافي',
+                        en: 'Professional data visualization'
+                    },
+                    url: 'https://www.tableau.com',
+                    category: 'Data Analysis',
+                    pricing: { ar: '$15-70/شهر', en: '$15-70/month' },
+                    easeOfUse: 3,
+                    features: {
+                        ar: ['تصورات احترافية', 'لوحات تحكم', 'للمؤسسات'],
+                        en: ['Professional visuals', 'Dashboards', 'Enterprise-ready']
+                    }
+                }
+            ],
+            'voice-audio': [
+                {
+                    name: 'ElevenLabs',
+                    description: {
+                        ar: 'أفضل أداة لتحويل النص إلى صوت طبيعي',
+                        en: 'Best tool for converting text to natural voice'
+                    },
+                    url: 'https://elevenlabs.io',
+                    category: 'Voice & Audio',
+                    pricing: { ar: 'مجاني / $5-99/شهر', en: 'Free / $5-99/month' },
+                    easeOfUse: 5,
+                    features: {
+                        ar: ['أصوات طبيعية جداً', 'متعدد اللغات', 'استنساخ صوت'],
+                        en: ['Very natural voices', 'Multi-language', 'Voice cloning']
+                    }
+                },
+                {
+                    name: 'Descript',
+                    description: {
+                        ar: 'تحرير الصوت والفيديو باستخدام AI',
+                        en: 'Audio and video editing using AI'
+                    },
+                    url: 'https://www.descript.com',
+                    category: 'Voice & Audio',
+                    pricing: { ar: 'مجاني / $12-24/شهر', en: 'Free / $12-24/month' },
+                    easeOfUse: 4,
+                    features: {
+                        ar: ['تحرير بالنص', 'إزالة الكلمات الزائدة', 'استوديو متكامل'],
+                        en: ['Text-based editing', 'Filler word removal', 'Complete studio']
+                    }
+                },
+                {
+                    name: 'Adobe Podcast AI',
+                    description: {
+                        ar: 'تحسين جودة الصوت وإزالة الضوضاء',
+                        en: 'Enhance audio quality and remove noise'
+                    },
+                    url: 'https://podcast.adobe.com',
+                    category: 'Voice & Audio',
+                    pricing: { ar: 'مجاني', en: 'Free' },
+                    easeOfUse: 5,
+                    features: {
+                        ar: ['إزالة الضوضاء', 'تحسين الصوت', 'مجاني تماماً'],
+                        en: ['Noise removal', 'Audio enhancement', 'Completely free']
+                    }
+                }
+            ],
+            'coding': [
+                {
+                    name: 'GitHub Copilot',
+                    description: {
+                        ar: 'مساعد برمجة ذكي من GitHub',
+                        en: 'Smart coding assistant from GitHub'
+                    },
+                    url: 'https://github.com/features/copilot',
+                    category: 'Coding',
+                    pricing: { ar: '$10-19/شهر', en: '$10-19/month' },
+                    easeOfUse: 4,
+                    features: {
+                        ar: ['اقتراحات أكواد', 'يدعم كل اللغات', 'تكامل VS Code'],
+                        en: ['Code suggestions', 'All languages', 'VS Code integration']
+                    }
+                },
+                {
+                    name: 'Cursor',
+                    description: {
+                        ar: 'محرر أكواد مدعوم بالذكاء الاصطناعي',
+                        en: 'AI-powered code editor'
+                    },
+                    url: 'https://cursor.sh',
+                    category: 'Coding',
+                    pricing: { ar: 'مجاني / $20/شهر', en: 'Free / $20/month' },
+                    easeOfUse: 4,
+                    features: {
+                        ar: ['محرر متكامل', 'محادثة مع الكود', 'قوي جداً'],
+                        en: ['Complete editor', 'Chat with code', 'Very powerful']
+                    }
+                },
+                {
+                    name: 'Replit AI',
+                    description: {
+                        ar: 'برمجة وتطوير مباشر بمساعدة AI',
+                        en: 'Direct coding and development with AI assistance'
+                    },
+                    url: 'https://replit.com',
+                    category: 'Coding',
+                    pricing: { ar: 'مجاني / $7-25/شهر', en: 'Free / $7-25/month' },
+                    easeOfUse: 5,
+                    features: {
+                        ar: ['برمجة بالمتصفح', 'نشر فوري', 'للمبتدئين'],
+                        en: ['Browser-based', 'Instant deploy', 'Beginner-friendly']
+                    }
+                }
+            ],
+            'design': [
+                {
+                    name: 'Canva AI',
+                    description: {
+                        ar: 'تصميم جرافيكي سهل بمساعدة AI',
+                        en: 'Easy graphic design with AI assistance'
+                    },
+                    url: 'https://www.canva.com',
+                    category: 'Design',
+                    pricing: { ar: 'مجاني / $10-30/شهر', en: 'Free / $10-30/month' },
+                    easeOfUse: 5,
+                    features: {
+                        ar: ['سهل جداً', 'قوالب جاهزة', 'للجميع'],
+                        en: ['Very easy', 'Ready templates', 'For everyone']
+                    }
+                },
+                {
+                    name: 'Figma AI',
+                    description: {
+                        ar: 'تصميم واجهات احترافي مع أدوات AI',
+                        en: 'Professional interface design with AI tools'
+                    },
+                    url: 'https://www.figma.com',
+                    category: 'Design',
+                    pricing: { ar: 'مجاني / $12-45/شهر', en: 'Free / $12-45/month' },
+                    easeOfUse: 3,
+                    features: {
+                        ar: ['احترافي', 'تعاون جماعي', 'للمصممين'],
+                        en: ['Professional', 'Team collaboration', 'For designers']
+                    }
+                },
+                {
+                    name: 'Uizard',
+                    description: {
+                        ar: 'تحويل الرسومات إلى تصاميم UI',
+                        en: 'Convert sketches to UI designs'
+                    },
+                    url: 'https://uizard.io',
+                    category: 'Design',
+                    pricing: { ar: 'مجاني / $12-39/شهر', en: 'Free / $12-39/month' },
+                    easeOfUse: 5,
+                    features: {
+                        ar: ['من رسم لتصميم', 'سريع', 'مبتكر'],
+                        en: ['Sketch to design', 'Fast', 'Innovative']
+                    }
+                }
+            ]
+        };
+        
+        // Analyze user input
+        function analyzeRequest(input) {
+            input = input.toLowerCase();
+            const steps = [];
+            
+            // Image generation keywords
+            if (input.includes('صور') || input.includes('صورة') || input.includes('رسم') || 
+                input.includes('image') || input.includes('picture') || input.includes('photo') ||
+                input.includes('generate image') || input.includes('create image')) {
+                steps.push({
+                    title: {
+                        ar: 'إنشاء الصور بالذكاء الاصطناعي',
+                        en: 'AI Image Generation'
+                    },
+                    description: {
+                        ar: 'استخدم أدوات توليد الصور المتقدمة لإنشاء صور احترافية من النص',
+                        en: 'Use advanced image generation tools to create professional images from text'
+                    },
+                    category: 'image-generation'
+                });
+            }
+            
+            // Video generation keywords
+            if (input.includes('فيديو') || input.includes('video') || 
+                input.includes('متحرك') || input.includes('animation')) {
+                steps.push({
+                    title: {
+                        ar: 'إنشاء الفيديو',
+                        en: 'Video Creation'
+                    },
+                    description: {
+                        ar: 'حول أفكارك إلى فيديوهات احترافية باستخدام أدوات AI المتقدمة',
+                        en: 'Transform your ideas into professional videos using advanced AI tools'
+                    },
+                    category: 'video-generation'
+                });
+            }
+            
+            // Text/writing keywords
+            if (input.includes('كتابة') || input.includes('نص') || input.includes('مقال') ||
+                input.includes('write') || input.includes('text') || input.includes('content') ||
+                input.includes('article')) {
+                steps.push({
+                    title: {
+                        ar: 'كتابة المحتوى',
+                        en: 'Content Writing'
+                    },
+                    description: {
+                        ar: 'استخدم نماذج اللغة المتقدمة لكتابة محتوى عالي الجودة',
+                        en: 'Use advanced language models to write high-quality content'
+                    },
+                    category: 'text-generation'
+                });
+            }
+            
+            // Data analysis keywords
+            if (input.includes('تحليل') || input.includes('بيانات') || input.includes('إحصائ') ||
+                input.includes('analyze') || input.includes('data') || input.includes('statistic')) {
+                steps.push({
+                    title: {
+                        ar: 'تحليل البيانات',
+                        en: 'Data Analysis'
+                    },
+                    description: {
+                        ar: 'حلل بياناتك واحصل على رؤى قيمة باستخدام أدوات AI المتخصصة',
+                        en: 'Analyze your data and get valuable insights using specialized AI tools'
+                    },
+                    category: 'data-analysis'
+                });
+            }
+            
+            // Voice/audio keywords
+            if (input.includes('صوت') || input.includes('نطق') || input.includes('تعليق صوتي') ||
+                input.includes('voice') || input.includes('audio') || input.includes('speech')) {
+                steps.push({
+                    title: {
+                        ar: 'توليد الصوت',
+                        en: 'Voice Generation'
+                    },
+                    description: {
+                        ar: 'أنشئ تعليقات صوتية طبيعية وواقعية من النص',
+                        en: 'Create natural and realistic voice-overs from text'
+                    },
+                    category: 'voice-audio'
+                });
+            }
+            
+            // Coding keywords
+            if (input.includes('برمجة') || input.includes('كود') || input.includes('تطوير') ||
+                input.includes('code') || input.includes('programming') || input.includes('develop')) {
+                steps.push({
+                    title: {
+                        ar: 'المساعدة في البرمجة',
+                        en: 'Coding Assistance'
+                    },
+                    description: {
+                        ar: 'احصل على مساعدة ذكية في كتابة وتحسين الأكواد البرمجية',
+                        en: 'Get smart assistance in writing and improving code'
+                    },
+                    category: 'coding'
+                });
+            }
+            
+            // Design keywords
+            if (input.includes('تصميم') || input.includes('design') || input.includes('واجهة') ||
+                input.includes('interface') || input.includes('ui') || input.includes('ux')) {
+                steps.push({
+                    title: {
+                        ar: 'التصميم الجرافيكي',
+                        en: 'Graphic Design'
+                    },
+                    description: {
+                        ar: 'صمم واجهات وجرافيكس احترافية بمساعدة AI',
+                        en: 'Design professional interfaces and graphics with AI assistance'
+                    },
+                    category: 'design'
+                });
+            }
+            
+            // If no specific category found, provide general AI tools
+            if (steps.length === 0) {
+                steps.push({
+                    title: {
+                        ar: 'البدء مع الذكاء الاصطناعي',
+                        en: 'Getting Started with AI'
+                    },
+                    description: {
+                        ar: 'ابدأ رحلتك مع أدوات الذكاء الاصطناعي الأساسية',
+                        en: 'Start your journey with essential AI tools'
+                    },
+                    category: 'text-generation'
+                });
+            }
+            
+            return steps;
+        }
+        
+        // Display results
+        function displayResults(steps) {
+            const roadmap = document.getElementById('roadmap');
+            roadmap.innerHTML = '';
+            
+            steps.forEach((step, index) => {
+                const tools = aiToolsDatabase[step.category] || [];
+                
+                const stepCard = document.createElement('div');
+                stepCard.className = 'step-card';
+                stepCard.style.animationDelay = `${index * 0.1}s`;
+                
+                stepCard.innerHTML = `
+                    <div class="step-number">${index + 1}</div>
+                    <h3 class="step-title">${step.title[currentLang]}</h3>
+                    <p class="step-description">${step.description[currentLang]}</p>
+                    <div class="tools-grid">
+                        ${tools.map(tool => `
+                            <div class="tool-card">
+                                <div class="tool-name">${tool.name}</div>
+                                <div class="tool-description">${tool.description[currentLang]}</div>
+                                <a href="${tool.url}" target="_blank" class="tool-link">
+                                    ${currentLang === 'ar' ? 'زيارة الموقع ←' : 'Visit Site →'}
+                                </a>
+                                <button class="add-to-compare" data-tool-name="${tool.name}" onclick='addToComparison(${JSON.stringify(tool).replace(/'/g, "&#39;")})'>
+                                    ${currentLang === 'ar' ? '⚖️ إضافة للمقارنة' : '⚖️ Add to Compare'}
+                                </button>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                
+                roadmap.appendChild(stepCard);
+            });
+        }
+        
+        // Handle analyze button click
+        document.getElementById('analyzeBtn').addEventListener('click', () => {
+            const input = document.getElementById('userInput').value.trim();
+            
+            if (!input) {
+                alert(currentLang === 'ar' ? 'الرجاء كتابة طلبك أولاً' : 'Please enter your request first');
+                return;
+            }
+            
+            // Show loading
+            document.getElementById('loading').classList.add('visible');
+            document.getElementById('results').classList.remove('visible');
+            
+            // Simulate AI analysis
+            setTimeout(() => {
+                const steps = analyzeRequest(input);
+                displayResults(steps);
+                
+                // Hide loading and show results
+                document.getElementById('loading').classList.remove('visible');
+                document.getElementById('results').classList.add('visible');
+                
+                // Scroll to results
+                document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+            }, 1500);
+        });
+        
+        // Allow Enter key in textarea to submit
+        document.getElementById('userInput').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && e.ctrlKey) {
+                document.getElementById('analyzeBtn').click();
+            }
+        });
+        
+        // Comparison Feature
+        let comparisonTools = [];
+        
+        function updateCompareCount() {
+            const badge = document.getElementById('compareBadge');
+            const btn = document.getElementById('viewComparisonBtn');
+            const section = document.getElementById('comparisonSection');
+            
+            badge.textContent = comparisonTools.length;
+            
+            if (comparisonTools.length > 0) {
+                btn.disabled = false;
+                section.classList.add('visible');
+            } else {
+                btn.disabled = true;
+                section.classList.remove('visible');
+            }
+            
+            // Update all compare buttons
+            document.querySelectorAll('.add-to-compare').forEach(button => {
+                const toolName = button.dataset.toolName;
+                const isAdded = comparisonTools.find(t => t.name === toolName);
+                
+                if (isAdded) {
+                    button.classList.add('added');
+                    button.innerHTML = currentLang === 'ar' ? '✓ تمت الإضافة' : '✓ Added';
+                } else {
+                    button.classList.remove('added');
+                    button.innerHTML = currentLang === 'ar' ? '⚖️ إضافة للمقارنة' : '⚖️ Add to Compare';
+                }
+            });
+        }
+        
+        function addToComparison(tool) {
+            const existingIndex = comparisonTools.findIndex(t => t.name === tool.name);
+            
+            if (existingIndex !== -1) {
+                // Remove from comparison
+                comparisonTools.splice(existingIndex, 1);
+            } else {
+                // Add to comparison
+                if (comparisonTools.length >= 3) {
+                    alert(currentLang === 'ar' ? 'يمكنك مقارنة 3 أدوات كحد أقصى' : 'You can compare up to 3 tools');
+                    return;
+                }
+                comparisonTools.push(tool);
+            }
+            
+            updateCompareCount();
+            updateComparisonPanel();
+        }
+        
+        function updateComparisonPanel() {
+            const grid = document.getElementById('comparisonGrid');
+            
+            if (comparisonTools.length === 0) {
+                grid.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 3rem; color: var(--text-dim);">
+                        <div style="font-size: 4rem; margin-bottom: 1rem;">⚖️</div>
+                        <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">${currentLang === 'ar' ? 'لم تقم بإضافة أي أدوات للمقارنة بعد' : 'No tools added for comparison yet'}</h3>
+                        <p>${currentLang === 'ar' ? 'اختر الأدوات من النتائج أدناه لبدء المقارنة' : 'Select tools from the results below to start comparing'}</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            grid.innerHTML = comparisonTools.map(tool => `
+                <div class="compare-tool-card">
+                    <button class="remove-compare" onclick="removeFromComparison('${tool.name}')">×</button>
+                    <h4 style="color: var(--accent); margin-bottom: 1.5rem; font-size: 1.4rem; font-weight: 700;">${tool.name}</h4>
+                    <div class="compare-feature">
+                        <div class="feature-label">${currentLang === 'ar' ? 'الوصف' : 'Description'}</div>
+                        <div class="feature-value">${tool.description[currentLang]}</div>
+                    </div>
+                    <div class="compare-feature">
+                        <div class="feature-label">${currentLang === 'ar' ? 'التصنيف' : 'Category'}</div>
+                        <div class="feature-value">${tool.category}</div>
+                    </div>
+                    <div class="compare-feature">
+                        <div class="feature-label">${currentLang === 'ar' ? 'السعر' : 'Pricing'}</div>
+                        <div class="feature-value">${tool.pricing[currentLang]}</div>
+                    </div>
+                    <div class="compare-feature">
+                        <div class="feature-label">${currentLang === 'ar' ? 'سهولة الاستخدام' : 'Ease of Use'}</div>
+                        <div class="feature-value">${'⭐'.repeat(tool.easeOfUse)} (${tool.easeOfUse}/5)</div>
+                    </div>
+                    <div class="compare-feature">
+                        <div class="feature-label">${currentLang === 'ar' ? 'الميزات الرئيسية' : 'Key Features'}</div>
+                        <div class="feature-value">${tool.features[currentLang].join(' • ')}</div>
+                    </div>
+                    <a href="${tool.url}" target="_blank" class="tool-link" style="margin-top: 1.5rem; display: inline-block;">
+                        ${currentLang === 'ar' ? 'زيارة الموقع ←' : 'Visit Site →'}
+                    </a>
+                </div>
+            `).join('');
+        }
+        
+        window.removeFromComparison = function(name) {
+            comparisonTools = comparisonTools.filter(t => t.name !== name);
+            updateCompareCount();
+            updateComparisonPanel();
+        };
+        
+        document.getElementById('viewComparisonBtn').addEventListener('click', () => {
+            document.getElementById('comparisonPanel').classList.add('visible');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        });
+        
+        document.getElementById('closeComparison').addEventListener('click', () => {
+            document.getElementById('comparisonPanel').classList.remove('visible');
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        });
+    </script>
+</body>
+</html>
